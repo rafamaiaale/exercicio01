@@ -44,8 +44,12 @@ public class Exercicio01 {
 
     }
 
-    public static void saidaDeDados() {
-
+    public static void saidaDeDados(Pessoa pessoa) {
+        System.out.println("***Dados do contato***");
+        System.out.println("Nome:" + pessoa.getNome());
+        System.out.println("Email:" + pessoa.getEmail());
+        System.out.println("Telefone:" + pessoa.getTelefone());
+        System.out.println("Data Nascimento:" + pessoa.getData());
     }
 
 }
