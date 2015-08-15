@@ -14,22 +14,25 @@ import java.util.Scanner;
 public class Exercicio01 {
 
     static Scanner leitor = new Scanner(System.in);
+    static Pessoa pessoa = new Pessoa();
 
     static void entradaDeDados(String nome, String telefone, String data, String email) {
+
         System.out.println("*** Cadastro de Contatos ***");
 
-        System.out.print("Digite o nome do Contato: ");
-        nome = leitor.nextLine();
-
-        System.out.print("Digite o telefone do Contato: ");
-        telefone = leitor.nextLine();
-
-        System.out.print("Digite a data de nascimento do Contato: ");
-        data = leitor.nextLine();
-
-        System.out.print("Digite o Email do Contato: ");
-        email = leitor.nextLine();
-
+        System.out.println("Digite o nome:");
+        pessoa.setNome(leitor.nextLine());
+        
+        System.out.println("Digite o e-mail:");
+        pessoa.setEmail(leitor.nextLine());
+        
+        System.out.println("Digite o telefone:");
+        pessoa.setTelefone(leitor.nextLine());
+        
+        System.out.println("Digite o data de nascimento:");
+        pessoa.setData(leitor.nextLine());
+        
+        
         System.out.println("*** Contato salvo ***");
 
     }
@@ -42,7 +45,7 @@ public class Exercicio01 {
     }
 
     public static void saidaDeDados() {
-        
+
     }
 
 }
