@@ -8,6 +8,15 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.target>1.7</maven.compiler.target>        
     </properties>
+
 </project>
+<dependency>
+    <groupId>com.microsoft.sqlserver</groupId>
+    <artifactId>sqljdbc4</artifactId>
+    <version>4.0</version>
+    <scope>system</scope>
+    <systemPath>${basedir}/lib/sqljdbc4.jar</systemPath> <!-- Colocar o caminho onde o arquivo baixado foi descompactado -->
+    <optional>true</optional>
+</dependency>
