@@ -5,7 +5,12 @@
  */
 package br.senac.tads.pi3.rafamaia.exercicio01;
 
+import java.beans.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Scanner;
+
 
 /**
  *
@@ -51,6 +56,30 @@ public class Exercicio01 {
         System.out.println("Email: " + pessoa.getEmail());
         System.out.println("Telefone: " + pessoa.getTelefone());
         System.out.println("Data Nascimento: " + pessoa.getData());
+    }
+    public static void listarPessoas(){
+        Statement stmt = null;
+        Connection conn = null;
+        
+        String sql = "Select * from TB_PESSOA";
+    
+        try{            
+            conn = obterConexao();
+            stmt = conn.createStatement();
+            
+            ResultSet resultados = stmt.execute(sql);
+        
+        }
+        
+        
+    }
+    public Connection obterConexao() throws SQLException,ClassNotFoundException{
+        Connection conn = null;
+        Class.forName("org.apache.derby.jdbc.ClientDataSource");
+        
+        conn = DriverManager.getConnection("jdbc:derby://localhost:");
+        
+        return conn;
     }
 
 }
