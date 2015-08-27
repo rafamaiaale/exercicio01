@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -91,12 +92,34 @@ public class Exercicio01 {
 
     }
 
+    static void deletaDados(Pessoa pessoa) {
+        System.out.print("Digite o ID do dado que será excluido: ");
+        int delID = leitor.nextInt();
+        Connection conn;
+        PreparedStatement stmt = null;
+        
+        
+        String sql = " delete * from aluno where ID_PESSOA = " + delID + ";";
+        
+        try {
+            conn = obterConexao();
+            stmt.executeQuery(sql);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Exercicio01.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Exercicio01.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public static void main(String[] args) {
         Pessoa pessoa = new Pessoa();
 
         entradaDeDados(pessoa);
 
         listarPessoas();
+        
+        deletaDados(pessoa);
 
     }
 
@@ -153,5 +176,7 @@ public class Exercicio01 {
                 "app");
         return conn;
     }
+    
+    
 
 }
