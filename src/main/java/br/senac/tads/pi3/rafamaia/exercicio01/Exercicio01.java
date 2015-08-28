@@ -92,14 +92,14 @@ public class Exercicio01 {
 
     }
 
-    static void deletaDados(Pessoa pessoa) {
+    static void deletaDados() {
         System.out.print("Digite o ID do dado que será excluido: ");
         int delID = leitor.nextInt();
         Connection conn;
         PreparedStatement stmt = null;
         
         
-        String sql = " delete * from aluno where ID_PESSOA = " + delID + ";";
+        String sql = " delete  from TB_PESSOA where ID_PESSOA = " + delID + ";";
         
         try {
             conn = obterConexao();
@@ -115,11 +115,14 @@ public class Exercicio01 {
     public static void main(String[] args) {
         Pessoa pessoa = new Pessoa();
 
+        
+        
+        
         entradaDeDados(pessoa);
 
         listarPessoas();
         
-        deletaDados(pessoa);
+        deletaDados();
 
     }
 
@@ -170,8 +173,7 @@ public class Exercicio01 {
     public static Connection obterConexao() throws SQLException, ClassNotFoundException {
         Connection conn = null;
         Class.forName("org.apache.derby.jdbc.ClientDataSource");
-
-        conn = DriverManager.getConnection("jdbc:derby://localhost:1527/agendabd;SecurityMechanism=3",
+        conn = DriverManager.getConnection("jdbc:derby://localhost:1527/AgendadB;SecurityMechanism=3",
                 "app",
                 "app");
         return conn;
