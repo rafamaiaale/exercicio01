@@ -163,16 +163,16 @@ public class Exercicio01 {
                 + "VL_TELEFONE = '" + pessoa.getTelefone() + "',"
                 + "VL_EMAIL = '" + pessoa.getEmail() + "' ,"
                 + "DT_NASCIMENTO = '" + pessoa.getData() + "'"
-                + "WHERE ID_PESSOA = " + alterID
-                + " VALUES (?, ?, ?, ?)";
+                + "WHERE ID_PESSOA = " + alterID;
+        //+ " VALUES (?, ?, ?, ?)";
 
         try {
             conn = obterConexao();
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, pessoa.getNome());
-            stmt.setDate(2, new java.sql.Date(dataNasc.getTime()));
-            stmt.setString(3, pessoa.getTelefone());
-            stmt.setString(4, pessoa.getEmail());
+            //stmt.setString(1, pessoa.getNome());
+            //stmt.setDate(2, new java.sql.Date(dataNasc.getTime()));
+            //stmt.setString(3, pessoa.getTelefone());
+            //stmt.setString(4, pessoa.getEmail());
 
             stmt.executeUpdate();
 
@@ -204,13 +204,37 @@ public class Exercicio01 {
     public static void main(String[] args) {
         Pessoa pessoa = new Pessoa();
 
-//        entradaDeDados(pessoa);
-//
-//        listarPessoas();
-//
-//        deletaDados();
-        
-        alteraDados(pessoa);
+        int opcao = 10;
+
+        do {
+            System.out.println("Escolha uma Opção:");
+            System.out.println("1- Inserir dados");
+            System.out.println("2- Listar Pessoas");
+            System.out.println("3- Excluir Pessoa");
+            System.out.println("4- Alterar Dados");
+
+            opcao = leitor.nextInt();
+
+            if (opcao > 0 && opcao < 5) {
+                
+                switch (opcao) {
+                    case 1:
+                        entradaDeDados(pessoa);
+                        break;
+                    case 2:
+                        listarPessoas();
+                        break;
+                    case 3:
+                        deletaDados();
+                        break;
+                    case 4:
+                        alteraDados(pessoa);
+                        break;
+
+                }
+            }
+
+        } while (opcao != 0);
 
     }
 
