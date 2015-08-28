@@ -95,34 +95,122 @@ public class Exercicio01 {
     static void deletaDados() {
         System.out.print("Digite o ID do dado que será excluido: ");
         int delID = leitor.nextInt();
-        Connection conn;
+        Connection conn = null;
         PreparedStatement stmt = null;
-        
-        
-        String sql = " delete  from TB_PESSOA where ID_PESSOA = " + delID + ";";
-        
+
+        String sql = " delete from TB_PESSOA where ID_PESSOA = " + delID + ";";
+
         try {
             conn = obterConexao();
             stmt.executeQuery(sql);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(Exercicio01.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Exercicio01.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Exercicio01.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Exercicio01.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
+
     }
-    
+
+    static void alteraDados(Pessoa pessoa) {
+        Date dataNasc;
+
+        PreparedStatement stmt = null;
+        Connection conn = null;
+
+        System.out.println("*** Alteração de Contatos ***");
+
+        System.out.print("Digite o ID a ser alterado: ");
+        int alterID = leitor.nextInt();
+
+        System.out.println("Digite o nome (alterado): ");
+        pessoa.setNome(leitor.nextLine());
+
+        System.out.println("Digite o e-mail (alterado): ");
+        pessoa.setEmail(leitor.nextLine());
+
+        System.out.println("Digite o telefone (alterado): ");
+        pessoa.setTelefone(leitor.nextLine());
+
+        System.out.println("Digite o data de nascimento no formato dd/mm/aaaa: ");
+        DateFormat formatadorData = new SimpleDateFormat("dd/MM/yyyy");
+
+        try {
+            dataNasc = formatadorData.parse(leitor.nextLine());
+        } catch (ParseException ex) {
+            Logger.getLogger(Exercicio01.class.getName()).log(Level.SEVERE, null, ex);
+            dataNasc = new Date();
+        }
+        pessoa.setData(dataNasc.toString());
+
+        String sql = "UPDATE TB_PESSOA \n"
+                + "SET NM_PESSOA = '" + pessoa.getNome() + "',"
+                + "VL_TELEFONE = '" + pessoa.getTelefone() + "',"
+                + "VL_EMAIL = '" + pessoa.getEmail() + "' ,"
+                + "DT_NASCIMENTO = '" + pessoa.getData() + "'"
+                + "WHERE ID_PESSOA = " + alterID
+                + " VALUES (?, ?, ?, ?)";
+
+        try {
+            conn = obterConexao();
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, pessoa.getNome());
+            stmt.setDate(2, new java.sql.Date(dataNasc.getTime()));
+            stmt.setString(3, pessoa.getTelefone());
+            stmt.setString(4, pessoa.getEmail());
+
+            stmt.executeUpdate();
+
+            System.out.println("*** Alterações salvas ***\n");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Exercicio01.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Exercicio01.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Exercicio01.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Exercicio01.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+
+    }
+
     public static void main(String[] args) {
         Pessoa pessoa = new Pessoa();
 
+//        entradaDeDados(pessoa);
+//
+//        listarPessoas();
+//
+//        deletaDados();
         
-        
-        
-        entradaDeDados(pessoa);
-
-        listarPessoas();
-        
-        deletaDados();
+        alteraDados(pessoa);
 
     }
 
@@ -178,7 +266,5 @@ public class Exercicio01 {
                 "app");
         return conn;
     }
-    
-    
 
 }
