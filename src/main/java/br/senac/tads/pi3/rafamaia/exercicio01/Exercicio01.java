@@ -164,15 +164,11 @@ public class Exercicio01 {
                 + "VL_EMAIL = '" + pessoa.getEmail() + "' ,"
                 + "DT_NASCIMENTO = '" + pessoa.getData() + "'"
                 + "WHERE ID_PESSOA = " + alterID;
-        //+ " VALUES (?, ?, ?, ?)";
 
         try {
             conn = obterConexao();
             stmt = conn.prepareStatement(sql);
-            //stmt.setString(1, pessoa.getNome());
-            //stmt.setDate(2, new java.sql.Date(dataNasc.getTime()));
-            //stmt.setString(3, pessoa.getTelefone());
-            //stmt.setString(4, pessoa.getEmail());
+            
 
             stmt.executeUpdate();
 
